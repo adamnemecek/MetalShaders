@@ -30,3 +30,9 @@ vertex ColoredVertex vertex_main(constant float4 *position [[buffer(0)]],
 fragment float4 fragment_main(ColoredVertex coloredVertex [[stage_in]]) {
     return coloredVertex.color;
 }
+
+// First Shader
+fragment float4 fragment_main_1(ColoredVertex coloredVertex [[stage_in]]) {
+    float4 color = float4(coloredVertex.position.x/375,coloredVertex.position.y/66,0.0,1.0);
+    return color;
+}

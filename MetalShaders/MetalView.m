@@ -44,11 +44,11 @@
                                       -1.0,-1.0, 0, 1,
                                        1.0,-1.0, 0, 1,};
 
-    static const float colors[] = {0.5, 0.5, 0.5, 1,
-                                   0.5, 0.5, 0.5, 1,
-                                   0.5, 0.5, 0.5, 1,
-                                   0.5, 0.5, 0.5, 1,
-                                   0.5, 0.5, 0.5, 1,
+    static const float colors[] = {1.0, 0.0, 0.0, 1,
+                                   0.5, 1.0, 0.0, 1,
+                                   0.0, 0.0, 1.0, 1,
+                                   0.0, 0.0, 1.0, 1,
+                                   0.0, 1.0, 0.0, 1,
                                    0.5, 0.5, 0.5, 1};
 
     self.positionBuffer = [self.device newBufferWithBytes:positions
@@ -64,7 +64,7 @@
     // Get library which contains all metal functions
     id<MTLLibrary> library = [self.device newDefaultLibrary];
     id<MTLFunction> vertexFunction = [library newFunctionWithName:@"vertex_main"];
-    id<MTLFunction> fragmentFunction = [library newFunctionWithName:@"fragment_main"];
+    id<MTLFunction> fragmentFunction = [library newFunctionWithName:@"fragment_main_1"];
 
     // Create Pipeline Descriptor
     MTLRenderPipelineDescriptor *pipelineDescriptor = [MTLRenderPipelineDescriptor new];
