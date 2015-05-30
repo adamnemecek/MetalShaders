@@ -8,6 +8,18 @@
 
 #import "MetalView.h"
 
+@interface MetalView()
+
+@property (strong, nonatomic) id<MTLDevice> device;
+@property (strong, nonatomic) CAMetalLayer *metalLayer;
+@property (strong, nonatomic) id<MTLRenderPipelineState> pipleline;
+@property (strong, nonatomic) id<MTLCommandQueue> commandQueue;
+@property (strong, nonatomic) id<MTLBuffer> positionBuffer;
+@property (strong, nonatomic) id<MTLBuffer> colorBuffer;
+@property (strong, nonatomic) CADisplayLink *displayLink;
+
+@end
+
 @implementation MetalView
 
 + (id)layerClass {

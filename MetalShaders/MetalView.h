@@ -11,12 +11,7 @@
 
 @interface MetalView : UIView
 
-@property (strong,nonatomic) id<MTLDevice> device;
-@property (strong,nonatomic) CAMetalLayer *metalLayer;
-@property (strong,nonatomic) id<MTLBuffer> positionBuffer;
-@property (strong,nonatomic) id<MTLBuffer> colorBuffer;
-@property (strong,nonatomic) id<MTLRenderPipelineState> pipleline;
-@property (strong,nonatomic) CADisplayLink *displayLink;
+
 
 - (instancetype)initWithCoder:(NSCoder *)aDecoder;
 
