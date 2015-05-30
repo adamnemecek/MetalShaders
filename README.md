@@ -1,5 +1,6 @@
 # MetalShaders
-###Authors: Chirag Raman <chirag.raman@gmail.com>, Tyler Zhu <tyler24.nl@gmail.com>
+###Authors:
+###Chirag Raman <chirag.raman@gmail.com>, Tyler Zhu <tyler24.nl@gmail.com>
 
 This project constitutes our exploration into Metal Shader programming. 
 The intention is to use [Inigo Quilez's shaders from Shadertoy](https://www.shadertoy.com/user/iq) as references and port them to Metal.
