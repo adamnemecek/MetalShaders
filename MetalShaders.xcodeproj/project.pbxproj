@@ -71,12 +71,12 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		3A8F89D51B1951E300743BB8 /* Shaders */ = {
+		3A8F89D51B1951E300743BB8 /* iqShaders */ = {
 			isa = PBXGroup;
 			children = (
 				46B95AC41B182A9A00A3ADE5 /* shader.metal */,
 			);
-			name = Shaders;
+			name = iqShaders;
 			sourceTree = "<group>";
 		};
 		46240FC81B163F780052C04D = {
@@ -101,7 +101,7 @@
 		46240FD31B163F780052C04D /* MetalShaders */ = {
 			isa = PBXGroup;
 			children = (
-				3A8F89D51B1951E300743BB8 /* Shaders */,
+				3A8F89D51B1951E300743BB8 /* iqShaders */,
 				462410001B1647720052C04D /* MetalView.h */,
 				462410011B1647720052C04D /* MetalView.m */,
 				46240FD81B163F780052C04D /* AppDelegate.h */,
