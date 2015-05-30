@@ -22,7 +22,7 @@
 
 @implementation MetalView
 
-+ (id)layerClass {
++ (Class)layerClass {
     return [CAMetalLayer class];
 }
 
