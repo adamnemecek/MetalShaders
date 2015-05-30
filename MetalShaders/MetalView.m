@@ -91,9 +91,13 @@
 
 // Display Link
 - (void)didMoveToWindow {
+
     [super didMoveToSuperview];
+
     if (self.superview) {
-        self.displayLink = [CADisplayLink displayLinkWithTarget:self selector:@selector(onDisplayLinkCalled:)];
+        self.displayLink = [CADisplayLink displayLinkWithTarget:self
+                                                       selector:@selector(displayLinkTick:)];
+
         [self.displayLink addToRunLoop:[NSRunLoop mainRunLoop] forMode:NSRunLoopCommonModes];
     }
     else {
@@ -102,8 +106,8 @@
     }
 }
 
-// Call back for each display link signal
-- (void)onDisplayLinkCalled:(CADisplayLink *)displayLink {
+// Call back for each display link tick
+- (void)displayLinkTick:(CADisplayLink *)displayLink {
     [self redraw];
 }
 
