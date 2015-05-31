@@ -64,13 +64,15 @@ fragment float4 sierpinski_main(ColoredVertex coloredVertex [[stage_in]],
     float2 coordinates = coloredVertex.position.xy;
     float2 resolution = uniforms->resolution;
 
-    float s = 0.1*smoothstep(0.7,1.0,sin(3.1415*t));
+    float s = 0.1*max(0.0,sin(3.1415*t));
     float2 uv = coordinates.xy/resolution;
 
     float f = 1.0;
-    for (int i = 0; i < 4; i++) {
-        f *= 1.0 - step(abs(abs(uv.x-0.5)-0.2),0.1-s)*step(abs(abs(uv.y-0.5)-0.2),0.1-s);
-        uv = fract(uv*5.0);
+    for (int i = 0; i < 3; i++) {
+        //f *= 1.0 - step(abs(abs(uv.x-0.5)-0.2),0.1-s)*step(abs(abs(uv.y-0.5)-0.2),0.1-s);
+        f *= 1- step(sqrt(pow(abs(uv.x-0.5)-0.25,2.0)+pow(abs(uv.y-0.5)-0.25,2.0)),s);
+
+        uv = fract(uv*4.0); // this scale the whole uv down by factor of 5
     }
 
     return float4(f,f,f,1.0);

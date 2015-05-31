@@ -55,9 +55,10 @@ struct FragmentUniform {
     // Get GPU
     self.device = MTLCreateSystemDefaultDevice();
     // Configure MetalLayer
+    self.metalLayer = (CAMetalLayer *)self.layer;
     self.metalLayer.device = self.device;
     self.metalLayer.pixelFormat = MTLPixelFormatBGRA8Unorm;
-    self.metalLayer = (CAMetalLayer *)self.layer;
+
 }
 
 - (void)setUpDisplayLink {
