@@ -7,9 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "MetalViewControllerDelegate.h"
 
-@interface ViewController : UIViewController
+@interface ViewController : UIViewController <MetalViewControllerDelegate>
 
+- (void)renderFragmentShader:(NSString*)shaderName;
 
 @end
 
