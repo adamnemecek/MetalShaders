@@ -30,7 +30,7 @@
 }
 
 - (NSArray *)shaderNames {
-    return @[@"fragment_main",@"fragment_main_1",@"fragment_main_2",@"sierpinski_main"];
+    return @[@"fragment_main",@"fragment_main_1",@"fragment_main_2",@"sierpinski_main",@"ray_cast_main"];
 }
 
 #pragma mark - Table view data source

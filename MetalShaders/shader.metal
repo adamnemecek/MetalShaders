@@ -78,4 +78,85 @@ fragment float4 sierpinski_main(ColoredVertex coloredVertex [[stage_in]],
     return float4(f,f,f,1.0);
 }
 
+// Forth Shader
+
+float distanceToSphere(float3 p, float r) {
+    return length(p)-r;
+}
+
+float distanceToGroundPlane(float3 p) {
+    return p.y+0.5;
+}
+
+float distanceToCube(float3 p) {
+    return length(max(abs(p)-float3(0.5,0.5,0.5),0.0));
+}
+
+float distanceToObjects(float3 p, float t) {
+    float d1 = distanceToSphere(p,0.5*max(0.0,sin(0.5*3.1415*t)));
+    float d2 = distanceToGroundPlane(p);
+    float d3 = distanceToSphere(p+(-1)*float3(0.5,0,0.5),0.5*max(0.0,sin(0.7*3.1415*t)));
+
+    float a = -3.1415/6;
+    float3x3 R = float3x3(float3(cos(a),0.0,-sin(a)),
+                          float3(0.0   ,1.0,    0.0),
+                          float3(sin(a),0.0, cos(a)));
+
+    float d4 = distanceToCube(R*(p+(-1)*float3(-0.4,0,0)));
+
+    return min(d1,min(d2,min(d3,d4)));
+}
+
+float4 rayCast(float3 ro, float3 rd, float time) {
+    float4 color = float4(1.0,1.0,1.0,1.0);
+    float4 color1 = float4(0.0,1.0,0.2,1.0);
+    float4 color2 = float4(0.0,0.2,1.0,1.0);
+
+    float t = 0.0;
+    const int N = 100;
+    for (int i = 0; i < N; i++) {
+        float3 p = ro+t*rd;
+        float d = distanceToObjects(p,time);
+        if (d < 0.01) {
+            color = mix(color1,color2,float(i)/float(N));
+            break;
+        }
+        else {
+            t += d;
+        }
+    }
+    return color;
+}
+
+fragment float4 ray_cast_main(ColoredVertex coloredVertex [[stage_in]],
+                                constant FragmentUniforms *uniforms [[buffer(0)]]) {
+    float t = uniforms->time;
+    float2 coordinates = coloredVertex.position.xy;
+    float2 resolution = uniforms->resolution;
+
+    float2 uv = 2.0*(coordinates/resolution)-1.0;
+    uv[0] *= resolution.x/resolution.y;
+    uv[1] = -uv[1];
+
+    float3 C_o = float3(0.0,0.0,0.0);
+    float3 C_x = float3(1.0,0.0,0.0);
+    float3 C_y = float3(0.0,1.0,0.0);
+    float3 C_z = float3(0.0,0.0,1.0);
+    float f = 2.0;
+
+    float3 T = float3(0,0,4);
+    float3x3 R = float3x3(float3(1.0,0.0,0.0),
+                          float3(0.0,1.0,0.0),
+                          float3(0.0,0.0,1.0));
+
+    float3 ray_o = uv[0]*C_x+uv[1]*C_y-f*C_z;
+    float3 ray_dir = normalize(ray_o);
+
+    float3 ray_o_g = R*ray_o+T;
+    float3 ray_dir_g = R*ray_dir;
+
+    return rayCast(ray_o_g,ray_dir_g,t);
+}
+
+
 
