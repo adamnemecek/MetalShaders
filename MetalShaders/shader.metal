@@ -93,9 +93,9 @@ float distanceToCube(float3 p) {
 }
 
 float distanceToObjects(float3 p, float t) {
-    float d1 = distanceToSphere(p,0.5*max(0.0,sin(0.5*3.1415*t)));
+    float d1 = distanceToSphere(p,0.5*max(0.0,sin(1.3*3.1415*t)));
     float d2 = distanceToGroundPlane(p);
-    float d3 = distanceToSphere(p+(-1)*float3(0.5,0,0.5),0.5*max(0.0,sin(0.7*3.1415*t)));
+    float d3 = distanceToSphere(p+(-1)*float3(0.5,0,0.5),0.5*max(0.0,sin(1.0*3.1415*t)));
 
     float a = -3.1415/6;
     float3x3 R = float3x3(float3(cos(a),0.0,-sin(a)),
@@ -145,9 +145,12 @@ fragment float4 ray_cast_main(ColoredVertex coloredVertex [[stage_in]],
     float f = 2.0;
 
     float3 T = float3(0,0,4);
-    float3x3 R = float3x3(float3(1.0,0.0,0.0),
-                          float3(0.0,1.0,0.0),
-                          float3(0.0,0.0,1.0));
+
+    float a = t/3;
+    float3x3 R = float3x3(float3(cos(a),0.0,-sin(a)),
+                          float3(0.0   ,1.0,    0.0),
+                          float3(sin(a),0.0, cos(a)));
+    T = R*T;
 
     float3 ray_o = uv[0]*C_x+uv[1]*C_y-f*C_z;
     float3 ray_dir = normalize(ray_o);
