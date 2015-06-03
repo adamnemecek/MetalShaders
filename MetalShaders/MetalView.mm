@@ -14,9 +14,21 @@ struct FragmentUniform {
     float time;
 };
 
+@interface MetalView()
+
+@property (strong, nonatomic) id<MTLDevice> device;
+@property (strong, nonatomic) CAMetalLayer *metalLayer;
+@property (strong, nonatomic) id<MTLRenderPipelineState> pipleline;
+@property (strong, nonatomic) id<MTLCommandQueue> commandQueue;
+@property (strong, nonatomic) id<MTLBuffer> positionBuffer;
+@property (strong, nonatomic) id<MTLBuffer> colorBuffer;
+@property (strong, nonatomic) CADisplayLink *displayLink;
+
+@end
+
 @implementation MetalView
 
-+ (id)layerClass {
++ (Class)layerClass {
     return [CAMetalLayer class];
 }
 
@@ -52,8 +64,10 @@ struct FragmentUniform {
 }
 
 - (void)setUpMetalLayer {
+
     // Get GPU
     self.device = MTLCreateSystemDefaultDevice();
+
     // Configure MetalLayer
     self.metalLayer = (CAMetalLayer *)self.layer;
     self.metalLayer.device = self.device;
@@ -63,7 +77,7 @@ struct FragmentUniform {
 
 - (void)setUpDisplayLink {
     if (self.displayLink == nil) {
-        self.displayLink = [CADisplayLink displayLinkWithTarget:self selector:@selector(onDisplayLinkCalled:)];
+        self.displayLink = [CADisplayLink displayLinkWithTarget:self selector:@selector(displayLinkTick:)];
         [self.displayLink addToRunLoop:[NSRunLoop mainRunLoop] forMode:NSRunLoopCommonModes];
     }
 }
@@ -128,7 +142,9 @@ struct FragmentUniform {
 
 // Display Link
 - (void)didMoveToWindow {
+
     [super didMoveToSuperview];
+
     if (self.superview) {
         [self setUpDisplayLink];
     }
@@ -137,9 +153,9 @@ struct FragmentUniform {
     }
 }
 
-// Call back for each display link signal
-- (void)onDisplayLinkCalled:(CADisplayLink *)displayLink {
-    [self buildVertexBuffers];
+// Call back for each display link tick
+- (void)displayLinkTick:(CADisplayLink *)displayLink {
+	[self buildVertexBuffers];
     [self redraw];
 }
 
