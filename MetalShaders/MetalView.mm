@@ -22,6 +22,7 @@ struct FragmentUniform {
 @property (strong, nonatomic) id<MTLCommandQueue> commandQueue;
 @property (strong, nonatomic) id<MTLBuffer> positionBuffer;
 @property (strong, nonatomic) id<MTLBuffer> colorBuffer;
+@property (strong, nonatomic) id<MTLBuffer> resolutionBuffer;
 @property (strong, nonatomic) CADisplayLink *displayLink;
 
 @end
