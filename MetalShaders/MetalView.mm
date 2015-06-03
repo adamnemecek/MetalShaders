@@ -35,7 +35,7 @@ struct FragmentUniform {
 
 - (instancetype)initWithCoder:(NSCoder *)aDecoder {
     if ((self = [super initWithCoder:aDecoder])) {
-        //po[self setUp];
+
     }
     return self;
 }
@@ -76,19 +76,6 @@ struct FragmentUniform {
 
 }
 
-- (void)setUpDisplayLink {
-    if (self.displayLink == nil) {
-        self.displayLink = [CADisplayLink displayLinkWithTarget:self selector:@selector(displayLinkTick:)];
-        [self.displayLink addToRunLoop:[NSRunLoop mainRunLoop] forMode:NSRunLoopCommonModes];
-    }
-}
-
-- (void)invalideDisplayLink {
-    if (self.displayLink != nil) {
-        [self.displayLink invalidate];
-        self.displayLink = nil;
-    }
-}
 
 - (void)buildVertexBuffers {
     static const float positions[] = {-1.0, 1.0, 0, 1,
@@ -153,6 +140,21 @@ struct FragmentUniform {
         [self invalideDisplayLink];
     }
 }
+
+- (void)setUpDisplayLink {
+    if (self.displayLink == nil) {
+        self.displayLink = [CADisplayLink displayLinkWithTarget:self selector:@selector(displayLinkTick:)];
+        [self.displayLink addToRunLoop:[NSRunLoop mainRunLoop] forMode:NSRunLoopCommonModes];
+    }
+}
+
+- (void)invalideDisplayLink {
+    if (self.displayLink != nil) {
+        [self.displayLink invalidate];
+        self.displayLink = nil;
+    }
+}
+
 
 // Call back for each display link tick
 - (void)displayLinkTick:(CADisplayLink *)displayLink {
